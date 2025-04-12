@@ -1,0 +1,20 @@
+<!-- src/app/noise/noise.component.html -->
+<div class="noise-container">
+    <h2>Noise Reduction</h2>
+    
+    <!-- Input Group -->
+    <div class="input-group">
+      <label for="noiseInput">Select Medical Image:</label>
+      <input type="file" id="noiseInput" accept="image/*" (change)="onFileSelected($event)" />
+    </div>
+  
+    <!-- Process Button -->
+    <button (click)="processNoise()" [disabled]="!selectedBase64">Apply Noise Reduction</button>
+  
+    <!-- Processed Image Result -->
+    <div *ngIf="processedImage" class="result-section">
+      <h3>Processed Result</h3>
+      <img [src]="processedImage" alt="Noise Reduced Image" />
+    </div>
+  </div>
+  

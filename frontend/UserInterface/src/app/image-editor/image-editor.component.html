@@ -1,0 +1,36 @@
+<!-- src/app/image-editor/image-editor.component.html -->
+<div class="editor-container">
+  <h2>Multi-Filter Image Editor</h2>
+  
+  <!-- Upload Section -->
+  <div class="upload-section">
+    <label for="uploadInput">Select Image:</label>
+    <input type="file" id="uploadInput" accept="image/*" (change)="onFileSelected($event)" />
+  </div>
+
+  <!-- kMeans Input: User can set the number of clusters -->
+  <div class="input-group">
+    <label for="kValueInput">Number of Clusters (K):</label>
+    <input id="kValueInput" type="number" [(ngModel)]="kValue" min="2" />
+  </div>
+  
+  <!-- Action Buttons -->
+  <div class="action-buttons">
+    <button (click)="applyFilter('grayscale')" [disabled]="!workingImage">Apply Grayscale</button>
+    <button (click)="applyFilter('noise')" [disabled]="!workingImage">Apply Noise Reduction</button>
+    <button (click)="applyFilter('kmeans')" [disabled]="!workingImage">Apply K-Means Segmentation</button>
+    <button (click)="resetWorkingImage()" [disabled]="!workingImage">Reset to Original</button>
+  </div>
+  
+  <!-- Image Display Section -->
+  <div class="images-container" *ngIf="originalImage || workingImage">
+    <div class="image-block">
+      <h3>Original Image</h3>
+      <img *ngIf="originalImage" [src]="originalImage" alt="Original Image" />
+    </div>
+    <div class="image-block">
+      <h3>Working Image</h3>
+      <img *ngIf="workingImage" [src]="workingImage" alt="Working Image" />
+    </div>
+  </div>
+</div>

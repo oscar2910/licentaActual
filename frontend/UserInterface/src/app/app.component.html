@@ -1,0 +1,21 @@
+<div class="app-container">
+  <header>
+    <h1>{{ title }}</h1>
+    <nav class="navbar">
+      <ul>
+        <li>
+          <a routerLink="/grayscale" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Grayscale</a>
+        </li>
+        <li>
+          <a routerLink="/noise" routerLinkActive="active">Noise Reduction</a>
+        </li>
+        <li>
+          <a routerLink="/kmeans" routerLinkActive="active">K-Means Segmentation</a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <router-outlet></router-outlet>
+  </main>
+</div>

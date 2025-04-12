@@ -1,0 +1,27 @@
+<div class="kmeans-container">
+    <h2>K-Means Segmentation</h2>
+    
+    <!-- Upload Section -->
+    <div class="input-group">
+      <label for="kmeansInput">Select Image:</label>
+      <input type="file" id="kmeansInput" accept="image/*" (change)="onFileSelected($event)" />
+    </div>
+  
+    <!-- K Value Input -->
+    <div class="input-group">
+      <label for="kValue">Number of Clusters (K):</label>
+      <input id="kValue" type="number" [(ngModel)]="k" min="1" />
+    </div>
+  
+    <!-- Action Button -->
+    <button (click)="processKmeans()" [disabled]="!selectedBase64">
+      Apply K-Means Segmentation
+    </button>
+  
+    <!-- Processed Result -->
+    <div *ngIf="processedImage" class="result-section">
+      <h3>Processed Result</h3>
+      <img [src]="processedImage" alt="K-Means Segmented Image">
+    </div>
+  </div>
+  
