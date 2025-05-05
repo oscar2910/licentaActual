@@ -1,79 +1,86 @@
+/* Make the component host fill the viewport & show a background image */
+:host {
+  display: block;             /* allow full‐width/height styling */
+  min-height: 100vh;          /* stretch to viewport height */
+  background: 
+    url('./assets/medicallogo.png') no-repeat center center fixed;
+  background-size: cover;
+}
+
+/* Container sits as a slightly translucent white card over the background */
 .app-container {
-    /* Center the main content with a max width and auto side margins */
-    max-width: 960px;
-    margin: 0 auto;
-    font-family: Arial, sans-serif;
-    padding: 0 1rem; /* Add side padding so content isn't flush against the edges */
-  }
-  
-  /* Header styling */
-  header {
-    display: flex;
-    align-items: center;      /* Vertically center items in the header */
-    justify-content: space-between; /* Space between the title and nav links */
-    background-color: #f5f5f5;
-    padding: 1rem;
-    margin-bottom: 1rem;
-    border: 1px solid #ccc;  /* Slight border to define the header region */
-    border-radius: 5px;      /* Rounded corners */
-  }
-  
-  /* Title inside the header */
-  header h1 {
-    margin: 0;
-    font-size: 1.8rem;
-  }
-  
-  .navbar {
-    background-color: #f5f5f5;
-    border-bottom: 1px solid #ccc;
-    padding: 0.75rem;
-    font-family: Arial, sans-serif;
-  }
-  
-  /* Removes default list styling and displays items horizontally */
-  .navbar ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    display: flex;
-    justify-content: center; /* centers the list horizontally */
-    align-items: center;
-  }
-  
-  .navbar li {
-    margin: 0 1rem;
-  }
-  
-  /* Base link styling */
-  .navbar a {
-    color: #007acc;
-    text-decoration: none;
-    font-weight: 500;
-    padding: 0.4rem 0.8rem;
-    border-radius: 4px;
-    transition: background-color 0.2s ease, color 0.2s ease;
-  }
-  
-  /* Hover effect */
-  .navbar a:hover {
-    background-color: #007acc;
-    color: #fff;
-  }
-  
-  /* Active route highlighting */
-  .navbar a.active {
-    background-color: #007acc; 
-    color: #fff;
-  }
-  
-  /* Main content styling */
-  main {
-    text-align: center; /* Center the router-outlet content (like forms/buttons) */
-  }
-  
-  /* Optional: Add spacing above the first child in main, if desired */
-  main > *:first-child {
-    margin-top: 2rem;
-  }
-  
+  background-color: rgba(255, 255, 255, 0.95);
+  max-width: 960px;
+  margin: 1.5rem auto;
+  padding: 0 1rem;
+  font-family: Arial, sans-serif;
+  border-radius: 6px;
+}
+
+/* Header (flex row: branding + nav) */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fafafa;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* Branding group */
+.branding {
+  display: flex;
+  align-items: center;
+}
+
+.branding .logo {
+  height: 40px;
+  margin-right: 0.75rem;
+}
+
+.branding h1 {
+  margin: 0;
+  font-size: 1.4rem;
+  color: #c6d1df;
+}
+
+/* Navigation */
+.navbar ul {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar li {
+  margin: 0 0.75rem;
+}
+
+/* Link styling */
+.navbar a {
+  display: block;
+  padding: 0.5rem 0.8rem;
+  color: #007acc;
+  text-decoration: none;
+  font-weight: 500;
+  border-radius: 4px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Hover */
+.navbar a:hover {
+  background-color: #e6f2fb;
+}
+
+/* Active route styling */
+.navbar a.active {
+  background-color: #007acc;
+  color: #fff;
+}
+
+/* Main area */
+main {
+  margin-top: 2rem;
+}

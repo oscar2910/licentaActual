@@ -1,20 +1,51 @@
 <div class="app-container">
   <header>
-    <h1>{{ title }}</h1>
+    <!-- Logo + Title -->
+    <div class="branding">
+      <img src="assets/medicallogo.png" alt="App Logo" class="logo" />
+      <h1>{{ title }}</h1>
+    </div>
+
+    <!-- Navigation -->
     <nav class="navbar">
       <ul>
         <li>
-          <a routerLink="/grayscale" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Grayscale</a>
+          <a 
+            routerLink="/grayscale" 
+            routerLinkActive="active" 
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            Grayscale
+          </a>
         </li>
         <li>
-          <a routerLink="/noise" routerLinkActive="active">Noise Reduction</a>
+          <a 
+            routerLink="/noise" 
+            routerLinkActive="active"
+          >
+            Noise Reduction
+          </a>
         </li>
         <li>
-          <a routerLink="/kmeans" routerLinkActive="active">K-Means Segmentation</a>
+          <a 
+            routerLink="/kmeans" 
+            routerLinkActive="active"
+          >
+            K-Means Segmentation
+          </a>
+        </li>
+        <li>
+          <a 
+            routerLink="/editor" 
+            routerLinkActive="active"
+          >
+            Multi-Filter Editor
+          </a>
         </li>
       </ul>
     </nav>
   </header>
+
   <main>
     <router-outlet></router-outlet>
   </main>
