@@ -20,8 +20,6 @@ public class ImageProcessingService {
      */
     public Mat fromBase64(String base64) {
         byte[] decoded = Base64.getDecoder().decode(base64);
-
-        // Convert byte[] to a Mat. We can wrap it in a MatOfByte and use imdecode.
         Mat matOfByte = new MatOfByte(decoded);
         Mat mat = Imgcodecs.imdecode(matOfByte, Imgcodecs.IMREAD_COLOR);
         return mat;
@@ -31,7 +29,6 @@ public class ImageProcessingService {
      * Converts a Mat to a base64-encoded PNG by default.
      */
     public String toBase64(Mat mat) {
-        // Convert Mat to MatOfByte in PNG format
         MatOfByte buffer = new MatOfByte();
         Imgcodecs.imencode(".png", mat, buffer);
         byte[] encoded = Base64.getEncoder().encode(buffer.toArray());
@@ -71,22 +68,15 @@ public class ImageProcessingService {
         }
 
         Mat result = new Mat();
-
-        // If color image, convert to YCrCb, apply CLAHE to the Y channel
         if (input.channels() == 3) {
             Mat ycrcb = new Mat();
             Imgproc.cvtColor(input, ycrcb, Imgproc.COLOR_BGR2YCrCb);
-
             java.util.List<Mat> channels = new java.util.ArrayList<>();
             Core.split(ycrcb, channels);
-
-            // Apply CLAHE on the Luminance channel
             Imgproc.createCLAHE(3.0, new Size(8, 8)).apply(channels.get(0), channels.get(0));
-
             Core.merge(channels, ycrcb);
             Imgproc.cvtColor(ycrcb, result, Imgproc.COLOR_YCrCb2BGR);
         } else {
-            // Grayscale
             Imgproc.createCLAHE(3.0, new Size(8, 8)).apply(input, result);
         }
         return result;
@@ -110,57 +100,56 @@ public class ImageProcessingService {
         return binary;
     }
 
+    /**
+     * Performs K-means color (or grayscale) segmentation.
+     */
     public Mat kMeansColorSegmentation(Mat input, int k) {
-        if (input.empty()) {
-            return input;
-        }
+        if (input.empty()) return input;
     
-        // Drop alpha if present
         if (input.channels() == 4) {
             Mat tmp = new Mat();
             Imgproc.cvtColor(input, tmp, Imgproc.COLOR_BGRA2BGR);
             input = tmp;
         }
     
-        System.out.println("kMeans: input.channels=" + input.channels());
-        
-        // Reshape into [totalPixels x channels] matrix
-        Mat samples = input.reshape(1, (int) input.total());
+        int numPixels = (int) input.total();
+        Mat samples   = input.reshape(1, numPixels);
         Mat samples32f = new Mat();
         samples.convertTo(samples32f, CvType.CV_32F);
     
-        System.out.println(
-          "kMeans: samples32f.dims=" + samples32f.dims() +
-          ", rows=" + samples32f.rows() +
-          ", cols=" + samples32f.cols()
-        );
-        // Now cols == input.channels()
-    
         if (k <= 0) k = 2;
-        System.out.println("kMeans: running with K=" + k);
-    
-        Mat labels = new Mat(), centers = new Mat();
-        TermCriteria criteria = new TermCriteria(TermCriteria.EPS+TermCriteria.MAX_ITER, 100, 0.2);
-    
-        Core.kmeans(samples32f, k, labels, criteria, 10, Core.KMEANS_RANDOM_CENTERS, centers);
+        Mat labels  = new Mat();
+        Mat centers = new Mat();
+        Core.kmeans(
+          samples32f,
+          k,
+          labels,
+          new TermCriteria(TermCriteria.EPS+TermCriteria.MAX_ITER, 100, 0.2),
+          10,
+          Core.KMEANS_RANDOM_CENTERS,
+          centers
+        );
     
         Mat result = new Mat(input.size(), input.type());
         int width = input.cols();
-        for (int i = 0; i < samples32f.rows(); i++) {
-            int idx = (int) labels.get(i, 0)[0];
-            double[] center = centers.get(idx, 0);
-            result.put(i / width, i % width, center);
-        }
+        int featureCount = centers.cols();  // should match input.channels()
     
+        for (int i = 0; i < numPixels; i++) {
+            int clusterIdx = (int) labels.get(i, 0)[0];
+            // build a full-length center vector
+            double[] centerVec = new double[featureCount];
+            for (int j = 0; j < featureCount; j++) {
+                centerVec[j] = centers.get(clusterIdx, j)[0];
+            }
+            int y = i / width, x = i % width;
+            result.put(y, x, centerVec);
+        }
         return result;
     }
     
-    
-    
-
 
     /**
-     * Applies Watershed segmentation. 
+     * Applies Watershed segmentation.
      */
     public Mat applyWatershedSegmentation(Mat input) {
         if (input.empty()) {
@@ -169,47 +158,36 @@ public class ImageProcessingService {
 
         Mat sourceColor = new Mat();
         if (input.channels() == 1) {
-            // convert to BGR
             Imgproc.cvtColor(input, sourceColor, Imgproc.COLOR_GRAY2BGR);
         } else {
             sourceColor = input.clone();
         }
 
-        // Convert to gray
         Mat gray = new Mat();
         Imgproc.cvtColor(sourceColor, gray, Imgproc.COLOR_BGR2GRAY);
-        // median blur
         Imgproc.medianBlur(gray, gray, 5);
 
-        // threshold using Otsu
         Mat binary = new Mat();
         Imgproc.threshold(gray, binary, 0, 255, Imgproc.THRESH_BINARY + Imgproc.THRESH_OTSU);
 
-        // morphological opening
         Mat kernel = Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new Size(3, 3));
         Mat opening = new Mat();
         Imgproc.morphologyEx(binary, opening, Imgproc.MORPH_OPEN, kernel, new Point(-1, -1), 2);
 
-        // sure background
         Mat sureBg = new Mat();
         Imgproc.dilate(opening, sureBg, kernel, new Point(-1, -1), 3);
 
-        // distance transform
         Mat distTransform = new Mat();
         Imgproc.distanceTransform(opening, distTransform, Imgproc.DIST_L2, 5);
         Core.normalize(distTransform, distTransform, 0, 1.0, Core.NORM_MINMAX);
 
-        // sure foreground
         Mat sureFg = new Mat();
         Imgproc.threshold(distTransform, sureFg, 0.5, 1.0, Imgproc.THRESH_BINARY);
-
         sureFg.convertTo(sureFg, CvType.CV_8U);
 
-        // unknown region
         Mat unknown = new Mat();
         Core.subtract(sureBg, sureFg, unknown);
 
-        // label markers
         Mat markers = new Mat();
         Imgproc.connectedComponents(sureFg, markers);
         Core.add(markers, Scalar.all(1), markers);
@@ -222,14 +200,12 @@ public class ImageProcessingService {
             }
         }
 
-        // watershed
         Imgproc.watershed(sourceColor, markers);
 
-        // mark boundaries
         for (int i = 0; i < markers.rows(); i++) {
             for (int j = 0; j < markers.cols(); j++) {
                 if ((int) markers.get(i, j)[0] == -1) {
-                    sourceColor.put(i, j, new double[]{0, 0, 255}); // red boundary
+                    sourceColor.put(i, j, new double[]{0, 0, 255});
                 }
             }
         }
