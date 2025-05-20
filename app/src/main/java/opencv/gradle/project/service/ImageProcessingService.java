@@ -115,42 +115,47 @@ public class ImageProcessingService {
             return input;
         }
     
-        // If the image has 4 channels (e.g., BGRA), remove the alpha channel by converting to BGR.
+        // Drop alpha if present
         if (input.channels() == 4) {
-            Mat temp = new Mat();
-            Imgproc.cvtColor(input, temp, Imgproc.COLOR_BGRA2BGR);
-            input = temp;
+            Mat tmp = new Mat();
+            Imgproc.cvtColor(input, tmp, Imgproc.COLOR_BGRA2BGR);
+            input = tmp;
         }
     
-        // Log the detected number of channels for debugging.
-        int channels = input.channels();
-        System.out.println("Detected channels: " + channels); // Expect 3 for color, 1 for grayscale.
-    
-        // IMPORTANT: Use reshape(1, total) so that each row becomes a pixel vector of length = (original.channels())
+        System.out.println("kMeans: input.channels=" + input.channels());
+        
+        // Reshape into [totalPixels x channels] matrix
         Mat samples = input.reshape(1, (int) input.total());
-        samples.convertTo(samples, CvType.CV_32F);
+        Mat samples32f = new Mat();
+        samples.convertTo(samples32f, CvType.CV_32F);
     
-        Mat labels = new Mat();
-        Mat centers = new Mat();
-        TermCriteria criteria = new TermCriteria(TermCriteria.EPS + TermCriteria.MAX_ITER, 100, 0.2);
+        System.out.println(
+          "kMeans: samples32f.dims=" + samples32f.dims() +
+          ", rows=" + samples32f.rows() +
+          ", cols=" + samples32f.cols()
+        );
+        // Now cols == input.channels()
     
-        // Run k-means clustering on the pixel data.
-        Core.kmeans(samples, k, labels, criteria, 10, Core.KMEANS_RANDOM_CENTERS, centers);
+        if (k <= 0) k = 2;
+        System.out.println("kMeans: running with K=" + k);
     
-        // Create an output image of the same size and type as the original input.
+        Mat labels = new Mat(), centers = new Mat();
+        TermCriteria criteria = new TermCriteria(TermCriteria.EPS+TermCriteria.MAX_ITER, 100, 0.2);
+    
+        Core.kmeans(samples32f, k, labels, criteria, 10, Core.KMEANS_RANDOM_CENTERS, centers);
+    
         Mat result = new Mat(input.size(), input.type());
-    
-        // For each pixel (each row in samples), retrieve its cluster index and use the corresponding center.
-        // Since we used reshape(1, total), each row in samples is of length = input.channels()
-        for (int i = 0; i < samples.rows(); i++) {
-            int clusterIdx = (int) labels.get(i, 0)[0];
-            // Centers should have number of columns equal to input.channels() (e.g., 3 for a color image).
-            double[] center = centers.get(clusterIdx, 0);
-            result.put(i / input.cols(), i % input.cols(), center);
+        int width = input.cols();
+        for (int i = 0; i < samples32f.rows(); i++) {
+            int idx = (int) labels.get(i, 0)[0];
+            double[] center = centers.get(idx, 0);
+            result.put(i / width, i % width, center);
         }
     
         return result;
     }
+    
+    
     
 
 

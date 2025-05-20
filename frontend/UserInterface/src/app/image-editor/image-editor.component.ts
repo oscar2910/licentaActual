@@ -57,7 +57,7 @@ export class ImageEditorComponent {
    * For "kmeans", the payload includes the additional k-value.
    * @param filter - One of: 'grayscale', 'noise', or 'kmeans'
    */
-  applyFilter(filter: 'grayscale' | 'noise' | 'kmeans'): void {
+  applyFilter(filter: 'grayscale' | 'noise' | 'otsu' | 'watershed' | 'canny' |'kmeans'): void {
     if (!this.workingImage) {
       console.warn('No image loaded!');
       return;
@@ -76,6 +76,15 @@ export class ImageEditorComponent {
         break;
       case 'kmeans':
         endpoint = 'http://localhost:8080/api/process/kmeans';
+        break;
+        case 'otsu':
+        endpoint = 'http://localhost:8080/api/process/otsu';
+        break;
+        case 'watershed':
+        endpoint = 'http://localhost:8080/api/process/watershed';
+        break;
+        case 'canny':
+        endpoint = 'http://localhost:8080/api/process/canny';
         break;
       default:
         console.error('Unknown filter:', filter);

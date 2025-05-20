@@ -1,0 +1,41 @@
+.otsu-container {
+    margin: 1rem auto;
+    max-width: 600px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+  }
+  
+  .otsu-container h2 {
+    margin-bottom: 1rem;
+    color: #007acc;
+  }
+  
+  .otsu-container input,
+  .otsu-container button {
+    margin: 0.5rem 0;
+  }
+  
+  .otsu-container button {
+    padding: 0.5rem 1rem;
+    background-color: #007acc;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .otsu-container button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .otsu-container .result {
+    margin-top: 1.5rem;
+  }
+  
+  .otsu-container img {
+    max-width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  

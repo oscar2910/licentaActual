@@ -1,0 +1,21 @@
+<div class="filter-card">
+    <h2>Watershed Segmentation</h2>
+  
+    <label>
+      Select Image:
+      <input type="file" accept="image/*" (change)="onFileSelected($event)" />
+    </label>
+  
+    <button 
+      (click)="processWatershed()" 
+      [disabled]="!selectedBase64"
+    >
+      Apply Watershed
+    </button>
+  
+    <div class="result" *ngIf="processedImage">
+      <h3>Result:</h3>
+      <img [src]="processedImage" alt="Watershed Result" />
+    </div>
+  </div>
+  

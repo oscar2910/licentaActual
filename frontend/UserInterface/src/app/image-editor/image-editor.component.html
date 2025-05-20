@@ -19,6 +19,9 @@
     <button (click)="applyFilter('grayscale')" [disabled]="!workingImage">Apply Grayscale</button>
     <button (click)="applyFilter('noise')" [disabled]="!workingImage">Apply Noise Reduction</button>
     <button (click)="applyFilter('kmeans')" [disabled]="!workingImage">Apply K-Means Segmentation</button>
+    <button (click)="applyFilter('otsu')" [disabled]="!workingImage">Apply OTSU Treshold Segmentation</button>
+    <button (click)="applyFilter('canny')" [disabled]="!workingImage">Apply Canny Edge Segmentation</button>
+    <button (click)="applyFilter('watershed')" [disabled]="!workingImage">Apply Watershed Segmentation</button>
     <button (click)="resetWorkingImage()" [disabled]="!workingImage">Reset to Original</button>
   </div>
   

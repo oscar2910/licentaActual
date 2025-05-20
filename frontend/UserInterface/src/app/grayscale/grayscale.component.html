@@ -1,20 +1,21 @@
-<div class="grayscale-container">
+<!-- src/app/grayscale/grayscale.component.html -->
+<div class="card">
   <h2>Grayscale Processor</h2>
-  
-  <!-- Input Group -->
-  <div class="input-group">
-    <label for="grayscaleInput">Select Medical Image:</label>
-    <input type="file" id="grayscaleInput" accept="image/*" (change)="onFileSelected($event)" />
-  </div>
 
-  <!-- Process Button -->
+  <label for="fileInput">Select Medical Image</label>
+  <input
+    id="fileInput"
+    type="file"
+    accept="image/*"
+    (change)="onFileSelected($event)"
+  />
+
   <button (click)="processGrayscale()" [disabled]="!selectedBase64">
     Process Grayscale
   </button>
 
-  <!-- Processed Image Result -->
-  <div *ngIf="processedImage" class="result-section">
-    <h3>Processed Result</h3>
-    <img [src]="processedImage" alt="Processed Image">
+  <div *ngIf="processedImage" class="result">
+    <h3>Result</h3>
+    <img [src]="processedImage" alt="Processed Image" />
   </div>
 </div>

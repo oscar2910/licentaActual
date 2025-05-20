@@ -1,0 +1,49 @@
+.filter-card {
+    max-width: 500px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background: rgba(255,255,255,0.9);
+    border-radius: 8px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    text-align: center;
+  }
+  
+  .filter-card h2 {
+    margin-bottom: 1rem;
+    color: #065d9f;
+  }
+  
+  .filter-card label {
+    display: block;
+    margin-bottom: 1rem;
+  }
+  
+  .filter-card input[type="file"] {
+    margin-top: 0.5rem;
+  }
+  
+  .filter-card button {
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background: #007acc;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .filter-card button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  .filter-card .result {
+    margin-top: 1.5rem;
+  }
+  
+  .filter-card .result img {
+    max-width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
