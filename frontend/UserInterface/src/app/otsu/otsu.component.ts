@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { DownloadComponent }    from '../download/download.component';
+
 
 @Component({
   selector: 'app-otsu',
   standalone: true,
-  imports: [CommonModule, HttpClientModule],
+  imports: [CommonModule, HttpClientModule, DownloadComponent],
   templateUrl: './otsu.component.html',
   styleUrls: ['./otsu.component.css']
 })

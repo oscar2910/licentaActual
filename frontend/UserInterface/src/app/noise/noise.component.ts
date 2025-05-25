@@ -1,12 +1,12 @@
-// src/app/noise/noise.component.ts
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { DownloadComponent }    from '../download/download.component';
 
 @Component({
   selector: 'app-noise',
   standalone: true,
-  imports: [CommonModule, HttpClientModule],
+  imports: [CommonModule, HttpClientModule, DownloadComponent],
   templateUrl: './noise.component.html',
   styleUrls: ['./noise.component.css']
 })
@@ -31,6 +31,7 @@ export class NoiseComponent {
       const dataUrl = reader.result as string;
       const base64Index = dataUrl.indexOf(',') + 1;
       this.selectedBase64 = dataUrl.substring(base64Index);
+      this.processedImage = null; // reset previous
     };
     reader.readAsDataURL(file);
   }
@@ -48,5 +49,5 @@ export class NoiseComponent {
         },
         error: (err) => console.error('Error processing noise reduction:', err)
       });
-  }
+    }
 }

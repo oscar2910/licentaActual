@@ -1,18 +1,30 @@
+<!-- src/app/otsu/otsu.component.html -->
 <div class="otsu-container">
-    <h2>Otsu Threshold Segmentation</h2>
-  
-    <!-- File Input -->
-    <input type="file" accept="image/*" (change)="onFileSelected($event)" />
-  
-    <!-- Process Button -->
-    <button (click)="processOtsu()" [disabled]="!selectedBase64">
+  <h2>Otsu Threshold Segmentation</h2>
+
+  <div class="controls">
+    <label for="otsuInput">Select Image:</label>
+    <input
+      id="otsuInput"
+      type="file"
+      accept="image/*"
+      (change)="onFileSelected($event)"
+    />
+    <button
+      (click)="processOtsu()"
+      [disabled]="!selectedBase64"
+    >
       Apply Otsu
     </button>
-  
-    <!-- Result -->
-    <div *ngIf="processedImage" class="result">
-      <h3>Segmented Result</h3>
-      <img [src]="processedImage" alt="Otsu Result" />
-    </div>
   </div>
-  
+
+  <div *ngIf="processedImage" class="result">
+    <h3>Segmented Result</h3>
+    <img
+      [src]="processedImage"
+      alt="Otsu Result"
+      class="result-image"
+    />
+    <app-download [image]="processedImage"></app-download>
+  </div>
+</div>

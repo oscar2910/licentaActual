@@ -2,11 +2,12 @@ import { Component }              from '@angular/core';
 import { CommonModule }           from '@angular/common';
 import { FormsModule }            from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { DownloadComponent }    from '../download/download.component';
 
 @Component({
   selector: 'app-canny',
   standalone: true,
-  imports: [CommonModule, FormsModule, HttpClientModule],
+  imports: [CommonModule, FormsModule, HttpClientModule, DownloadComponent],
   templateUrl: './canny.component.html',
   styleUrls:  ['./canny.component.css']
 })

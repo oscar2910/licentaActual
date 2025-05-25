@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { DownloadComponent }    from '../download/download.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-grayscale',
   standalone: true,
-  imports: [CommonModule, HttpClientModule],
+  imports: [CommonModule, HttpClientModule, DownloadComponent, FormsModule],
   templateUrl: './grayscale.component.html',
   styleUrls: ['./grayscale.component.css']
 })
@@ -59,5 +61,18 @@ export class GrayscaleComponent {
         },
         error: (err) => console.error('Error processing grayscale:', err)
       });
+  }
+
+   downloadImage(): void {
+    if (!this.processedImage) {
+      return;
+    }
+    const link = document.createElement('a');
+    link.href = this.processedImage;
+    // Dynamic filename: grayscale-{timestamp}.png
+    link.download = `grayscale.png`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   }
 }

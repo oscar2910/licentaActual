@@ -1,11 +1,12 @@
 import { Component }       from '@angular/core';
 import { CommonModule }    from '@angular/common';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { DownloadComponent }    from '../download/download.component';
 
 @Component({
   selector: 'app-watershed',
   standalone: true,
-  imports: [CommonModule, HttpClientModule],
+  imports: [CommonModule, HttpClientModule , DownloadComponent],
   templateUrl: './watershed.component.html',
   styleUrls:  ['./watershed.component.css']
 })

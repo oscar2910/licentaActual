@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { DownloadComponent }    from '../download/download.component';
 
 @Component({
   selector: 'app-histogram',
   standalone: true,
-  imports: [ CommonModule, HttpClientModule, FormsModule ],
+  imports: [ CommonModule, HttpClientModule, FormsModule, DownloadComponent ],
   templateUrl: './histogram.component.html',
   styleUrls: [ './histogram.component.css' ]
 })
@@ -44,5 +45,5 @@ export class HistogramComponent {
         },
         error: err => console.error('Histogram error', err)
       });
-  }
+    }
 }

@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { DownloadComponent }    from '../download/download.component';
 
 @Component({
   selector: 'app-kmeans',
   standalone: true,
-  imports: [CommonModule, HttpClientModule, FormsModule],
+  imports: [CommonModule, HttpClientModule, FormsModule, DownloadComponent],
   templateUrl: './kmeans.component.html',
   styleUrls: ['./kmeans.component.css']
 })
