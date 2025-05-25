@@ -95,3 +95,42 @@
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
+.click-container {
+  position: relative;
+  display: inline-block;
+  margin-top: 1rem;
+}
+
+/* make the <img> responsive */
+.click-container img,
+.click-container canvas {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* overlay sits atop the image */
+.click-container canvas {
+  position: absolute;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+}
+
+.click-container .overlay-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  /* make sure it’s on top: */
+  z-index: 10;
+}
+
+/* optional styling for the info texts */
+.measure-info {
+  margin-top: 0.5rem;
+  color: #333;
+  font-family: Arial, sans-serif;
+}
+

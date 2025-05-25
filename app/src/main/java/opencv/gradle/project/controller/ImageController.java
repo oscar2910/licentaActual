@@ -1,6 +1,7 @@
 package opencv.gradle.project.controller;
 
 import opencv.gradle.project.dto.ImageRequest;
+import opencv.gradle.project.dto.MeasureRequest;
 import opencv.gradle.project.service.ImageProcessingService;
 import org.opencv.core.Mat;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -97,5 +98,22 @@ public class ImageController {
         String result = imageService.toBase64(edges);
         return ResponseEntity.ok(result);
     }
+
+    @PostMapping("/measure/distance")
+  public ResponseEntity<String> measureDistance(@RequestBody MeasureRequest req) {
+    var pts = req.getPoints();
+    if (pts == null || pts.size() != 2) {
+      return ResponseEntity
+        .badRequest()
+        .body("Must supply exactly two points");
+    }
+
+    // Compute Euclidean distance in pixel‐space:
+    double dx = pts.get(1).getX() - pts.get(0).getX();
+    double dy = pts.get(1).getY() - pts.get(0).getY();
+    double distance = Math.hypot(dx, dy);
+
+    return ResponseEntity.ok(Double.toString(distance));
+  }
 
 }

@@ -1,39 +1,66 @@
-<!-- src/app/image-editor/image-editor.component.html -->
 <div class="editor-container">
   <h2>Multi-Filter Image Editor</h2>
   
-  <!-- Upload Section -->
+  <!-- Upload -->
   <div class="upload-section">
     <label for="uploadInput">Select Image:</label>
-    <input type="file" id="uploadInput" accept="image/*" (change)="onFileSelected($event)" />
+    <input id="uploadInput"
+           type="file"
+           accept="image/*"
+           (change)="onFileSelected($event)" />
   </div>
 
-  <!-- kMeans Input: User can set the number of clusters -->
+  <!-- K-means -->
   <div class="input-group">
     <label for="kValueInput">Number of Clusters (K):</label>
-    <input id="kValueInput" type="number" [(ngModel)]="kValue" min="2" />
+    <input id="kValueInput"
+           type="number"
+           [(ngModel)]="kValue"
+           min="2" />
   </div>
   
   <!-- Action Buttons -->
   <div class="action-buttons">
-    <button (click)="applyFilter('grayscale')" [disabled]="!workingImage">Apply Grayscale</button>
-    <button (click)="applyFilter('noise')" [disabled]="!workingImage">Apply Noise Reduction</button>
-    <button (click)="applyFilter('kmeans')" [disabled]="!workingImage">Apply K-Means Segmentation</button>
-    <button (click)="applyFilter('otsu')" [disabled]="!workingImage">Apply OTSU Treshold Segmentation</button>
-    <button (click)="applyFilter('canny')" [disabled]="!workingImage">Apply Canny Edge Segmentation</button>
-    <button (click)="applyFilter('watershed')" [disabled]="!workingImage">Apply Watershed Segmentation</button>
-    <button (click)="resetWorkingImage()" [disabled]="!workingImage">Reset to Original</button>
+    <button (click)="applyFilter('grayscale')" [disabled]="!workingImage">Grayscale</button>
+    <button (click)="applyFilter('noise')"     [disabled]="!workingImage">Noise Reduction</button>
+    <button (click)="applyFilter('histogram')" [disabled]="!workingImage">Histogram EQ</button>
+    <button (click)="applyFilter('kmeans')"    [disabled]="!workingImage">K-Means</button>
+    <button (click)="applyFilter('otsu')"      [disabled]="!workingImage">Otsu</button>
+    <button (click)="applyFilter('canny')"     [disabled]="!workingImage">Canny</button>
+    <button (click)="applyFilter('watershed')" [disabled]="!workingImage">Watershed</button>
+    <button (click)="applyFilter('measure-distance')" [disabled]="!workingImage">
+      Measure Distance
+    </button>
+    <button (click)="resetWorkingImage()" [disabled]="!workingImage">Reset</button>
   </div>
   
-  <!-- Image Display Section -->
+  <!-- Image Displays -->
   <div class="images-container" *ngIf="originalImage || workingImage">
     <div class="image-block">
-      <h3>Original Image</h3>
-      <img *ngIf="originalImage" [src]="originalImage" alt="Original Image" />
+      <h3>Original</h3>
+      <img *ngIf="originalImage" [src]="originalImage" />
     </div>
-    <div class="image-block">
-      <h3>Working Image</h3>
-      <img *ngIf="workingImage" [src]="workingImage" alt="Working Image" />
+
+    <div class="image-block click-container">
+      <h3>Working</h3>
+      <!-- only clickable in measureMode -->
+      <img *ngIf="workingImage"
+           [src]="workingImage"
+           [class.clickable]="measureMode"
+           (click)="onImageClick($event)" />
+    </div>
+
+    <!-- Show the two raw coords -->
+    <div *ngIf="points.length > 0" class="measure-info">
+      Points: {{ points | json }}
+    </div>
+    <!-- Show measured distance -->
+    <div *ngIf="measuredDistance !== null" class="measure-info">
+      <strong>Distance:</strong> {{ measuredDistance | number:'1.2-2' }} px
+    </div>
+    <!-- Prompt when in measureMode -->
+    <div *ngIf="measureMode" class="measure-info">
+      Click exactly two points on the <em>Working</em> image...
     </div>
   </div>
 </div>

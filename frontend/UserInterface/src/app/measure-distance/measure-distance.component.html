@@ -1,0 +1,47 @@
+<!-- measure-distance.component.html -->
+<div class="card measure-card">
+    <h2>Measure Pixel-Distance</h2>
+  
+    <!-- file selector -->
+    <div class="form-group">
+      <input
+        type="file"
+        accept="image/*"
+        (change)="onFileSelected($event)"
+      />
+    </div>
+  
+    <!-- image + overlay -->
+    <div
+      class="image-container"
+      *ngIf="selectedImage"
+      (click)="onImageClick($event)"
+    >
+      <img
+        #imageEl
+        [src]="selectedImage"
+        alt="Loaded image"
+        (load)="onImageLoad()"
+      />
+      <canvas #overlayCanvas></canvas>
+    </div>
+  
+    <!-- controls -->
+    <div class="controls" *ngIf="selectedImage">
+      <p class="points">Clicked points: {{ points | json }}</p>
+      <button class="btn btn-secondary" (click)="clearMarkers()">
+        Clear
+      </button>
+      <button
+        class="btn btn-primary"
+        (click)="computeDistance()"
+        [disabled]="points.length < 2"
+      >
+        Compute Distance
+      </button>
+      <p class="distance" *ngIf="distance !== null">
+        Distance: {{ distance | number:'1.2-2' }} px
+      </p>
+    </div>
+  </div>
+  

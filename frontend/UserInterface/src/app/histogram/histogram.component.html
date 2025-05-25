@@ -1,0 +1,16 @@
+<div class="filter-container">
+    <h2>Histogram Equalization</h2>
+  
+    <div class="controls">
+      <input type="file" accept="image/*" (change)="onFileSelected($event)" />
+      <button (click)="processHistogram()" [disabled]="!selectedBase64">
+        Apply Equalization
+      </button>
+    </div>
+  
+    <div class="result" *ngIf="processedImage">
+      <h3>Result</h3>
+      <img [src]="processedImage" alt="Histogram Equalized Image" />
+    </div>
+  </div>
+  
