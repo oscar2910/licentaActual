@@ -110,21 +110,15 @@
   height: auto;
 }
 
-/* overlay sits atop the image */
-.click-container canvas {
-  position: absolute;
-  left: 0;
-  top: 0;
-  pointer-events: none;
-}
-
+/* overlay sits atop the image and accepts clicks */
+.click-container canvas,
 .click-container .overlay-canvas {
   position: absolute;
-  top: 0;
   left: 0;
-  pointer-events: none;
-  /* make sure it’s on top: */
+  top: 0;
+  pointer-events: auto;
   z-index: 10;
+  cursor: crosshair;
 }
 
 /* optional styling for the info texts */
@@ -133,4 +127,3 @@
   color: #333;
   font-family: Arial, sans-serif;
 }
-
