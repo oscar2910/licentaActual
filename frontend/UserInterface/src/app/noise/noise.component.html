@@ -1,31 +1,21 @@
-<!-- src/app/noise/noise.component.html -->
-<div class="noise-container">
+<div class="card">
   <h2>Noise Reduction</h2>
-
-  <div class="controls">
-    <label for="noiseInput">Select Image:</label>
-    <input
-      id="noiseInput"
-      type="file"
-      accept="image/*"
-      (change)="onFileSelected($event)"
-    />
-
-    <button
-      (click)="processNoise()"
-      [disabled]="!selectedBase64"
-    >
-      Apply Noise Reduction
-    </button>
-  </div>
-
-  <div *ngIf="processedImage" class="result">
+  <label for="fileInput">Select Medical Image</label>
+  <input
+    id="fileInput"
+    type="file"
+    accept="image/*"
+    (change)="onFileSelected($event)"
+  />
+  <button
+    (click)="processNoise()"
+    [disabled]="!selectedBase64"
+  >
+    Apply Noise Reduction
+  </button>
+  <div *ngIf="processedImage" class="result-section">
     <h3>Result</h3>
-    <img
-      [src]="processedImage"
-      alt="Noise Reduced Image"
-      class="result-image"
-    />
+    <img [src]="processedImage" alt="Noise Reduced Image" />
     <app-download [image]="processedImage"></app-download>
   </div>
 </div>

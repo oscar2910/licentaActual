@@ -44,9 +44,6 @@ export class KmeansComponent {
     reader.readAsDataURL(file);
   }
 
-  /**
-   * Sends the image and k value to the backend for k-means segmentation.
-   */
   processKmeans(): void {
     if (!this.selectedBase64 || !this.k) {
       console.warn('Please select an image and provide a valid value for K.');
@@ -56,7 +53,6 @@ export class KmeansComponent {
     this.http.post('http://localhost:8080/api/process/kmeans', payload, { responseType: 'text' })
       .subscribe({
         next: (base64Result: string) => {
-          // Construct a valid data URL (assuming PNG output; adjust if needed)
           this.processedImage = 'data:image/png;base64,' + base64Result;
         },
         error: (err) => console.error('Error processing K-Means:', err)

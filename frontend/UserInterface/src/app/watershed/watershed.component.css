@@ -1,49 +1,74 @@
-.filter-card {
-    max-width: 500px;
-    margin: 2rem auto;
-    padding: 1.5rem;
-    background: rgba(255,255,255,0.9);
-    border-radius: 8px;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
-    text-align: center;
-  }
-  
-  .filter-card h2 {
-    margin-bottom: 1rem;
-    color: #065d9f;
-  }
-  
-  .filter-card label {
-    display: block;
-    margin-bottom: 1rem;
-  }
-  
-  .filter-card input[type="file"] {
-    margin-top: 0.5rem;
-  }
-  
-  .filter-card button {
-    margin-top: 1rem;
-    padding: 0.5rem 1rem;
-    background: #007acc;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .filter-card button:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-  
-  .filter-card .result {
-    margin-top: 1.5rem;
-  }
-  
-  .filter-card .result img {
-    max-width: 100%;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
+:host {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 1rem;
+}
+
+.card {
+  background: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  width: 100%;
+  max-width: 600px;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  font-family: Arial, sans-serif;
+}
+
+.card h2,
+.card h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.card label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #ddd;
+}
+
+.card input[type="file"] {
+  width: 100%;
+  padding: 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid #555;
+  border-radius: 4px;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+.card button {
+  display: block;
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #007acc;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.card button[disabled] {
+  background-color: #555;
+  cursor: not-allowed;
+}
+
+.card button:not([disabled]):hover {
+  background-color: #005f99;
+}
+
+.card .result-section {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.card .result-section img {
+  max-width: 100%;
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}

@@ -1,29 +1,28 @@
 <!-- src/app/histogram-equalization/histogram.component.html -->
-<div class="filter-container">
+<div class="card">
   <h2>Histogram Equalization</h2>
 
-  <div class="controls">
-    <input
-      type="file"
-      accept="image/*"
-      (change)="onFileSelected($event)"
-    />
-    <button
-      (click)="processHistogram()"
-      [disabled]="!selectedBase64"
-    >
-      Apply Equalization
-    </button>
-  </div>
+  <label for="fileInput">Select Medical Image</label>
+  <input
+    id="fileInput"
+    type="file"
+    accept="image/*"
+    (change)="onFileSelected($event)"
+  />
 
-  <div *ngIf="processedImage" class="result">
+  <button
+    (click)="processHistogram()"
+    [disabled]="!selectedBase64"
+  >
+    Apply Equalization
+  </button>
+
+  <div *ngIf="processedImage" class="result-section">
     <h3>Result</h3>
     <img
       [src]="processedImage"
       alt="Histogram Equalized Image"
-      class="result-image"
     />
-    <!-- single download button below -->
     <app-download [image]="processedImage"></app-download>
   </div>
 </div>

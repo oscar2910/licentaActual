@@ -1,32 +1,45 @@
-<div class="filter-card">
+<div class="card">
   <h2>Canny Edge Detection</h2>
 
-  <label>
-    Select Image:
-    <input type="file" accept="image/*" (change)="onFileSelected($event)" />
-  </label>
+  <label for="fileInput">Select Image</label>
+  <input
+    id="fileInput"
+    type="file"
+    accept="image/*"
+    (change)="onFileSelected($event)"
+  />
 
   <div class="thresholds">
-    <label>
-      Threshold 1:
-      <input type="number" [(ngModel)]="threshold1" min="0" />
+    <label for="t1">
+      Threshold 1
+      <input
+        id="t1"
+        type="number"
+        [(ngModel)]="threshold1"
+        min="0"
+      />
     </label>
-    <label>
-      Threshold 2:
-      <input type="number" [(ngModel)]="threshold2" min="0" />
+    <label for="t2">
+      Threshold 2
+      <input
+        id="t2"
+        type="number"
+        [(ngModel)]="threshold2"
+        min="0"
+      />
     </label>
   </div>
 
-  <button 
+  <button
     (click)="applyCanny()"
     [disabled]="!selectedBase64"
   >
     Apply Canny
   </button>
 
-  <div class="result" *ngIf="processedImage">
-    <h3>Result:</h3>
+  <div *ngIf="processedImage" class="result-section">
+    <h3>Result</h3>
     <img [src]="processedImage" alt="Canny Edges" />
     <app-download [image]="processedImage"></app-download>
   </div>
-  
+</div>

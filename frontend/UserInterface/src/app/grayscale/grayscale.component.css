@@ -1,13 +1,10 @@
-/* src/app/grayscale/grayscale.component.css */
 
-/* Center the card on screen */
 :host {
   display: flex;
   justify-content: center;
   padding: 2rem 1rem;
 }
 
-/* The “card” itself */
 .card {
   background: rgba(0, 0, 0, 0.7);
   color: #fff;
@@ -19,7 +16,6 @@
   font-family: Arial, sans-serif;
 }
 
-/* Section headings */
 .card h2,
 .card h3 {
   margin-top: 0;
@@ -27,7 +23,7 @@
   text-align: center;
 }
 
-/* Labels */
+
 .card label {
   display: block;
   margin-bottom: 0.5rem;
@@ -35,7 +31,7 @@
   color: #ddd;
 }
 
-/* File input styling */
+
 .card input[type="file"] {
   width: 100%;
   padding: 0.5rem;
@@ -46,7 +42,7 @@
   margin-bottom: 1rem;
 }
 
-/* Button styling */
+
 .card button {
   display: block;
   width: 100%;
@@ -61,18 +57,18 @@
   transition: background-color 0.2s ease;
 }
 
-/* Disabled button state */
+
 .card button[disabled] {
   background-color: #555;
   cursor: not-allowed;
 }
 
-/* Hover only when enabled */
+
 .card button:not([disabled]):hover {
   background-color: #005f99;
 }
 
-/* The returned image */
+
 .card .result {
   margin-top: 1.5rem;
   text-align: center;

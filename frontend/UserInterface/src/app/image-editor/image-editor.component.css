@@ -1,64 +1,94 @@
-.editor-container {
+:host {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 1rem;
+}
+
+.card {
+  background: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  width: 100%;
   max-width: 800px;
-  margin: 2rem auto;
-  padding: 1.5rem;
-  background-color: #fff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
   border-radius: 8px;
-  text-align: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
   font-family: Arial, sans-serif;
 }
 
-.upload-section,
-.input-group {
+.card h2,
+.card h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.card label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #ddd;
+}
+
+.card input[type="file"],
+.card input[type="number"] {
+  width: 100%;
+  padding: 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid #555;
+  border-radius: 4px;
+  color: #fff;
   margin-bottom: 1rem;
 }
 
-.action-buttons {
+.card .action-buttons {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
   gap: 0.5rem;
+  justify-content: center;
   margin-bottom: 1.5rem;
 }
 
-.action-buttons button {
-  padding: 0.5rem 1rem;
+.card .action-buttons button {
+  flex: 1 1 150px;
+  padding: 0.75rem;
   background-color: #007acc;
   color: #fff;
+  font-weight: 600;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  transition: background-color 0.2s ease;
 }
 
-.images-container {
+.card .action-buttons button[disabled] {
+  background-color: #555;
+  cursor: not-allowed;
+}
+
+.card .action-buttons button:not([disabled]):hover {
+  background-color: #005f99;
+}
+
+.card .images-container {
   display: flex;
-  justify-content: center;
   gap: 1rem;
+  margin-bottom: 1.5rem;
 }
 
-.image-block {
-  flex: 1 1 300px;
+.card .image-block {
+  flex: 1;
+  text-align: center;
 }
 
-.image-block img {
+.card .image-block img {
   max-width: 100%;
-  display: block;
-  border: 1px solid #ddd;
   border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
 
-/* Click-container & overlay canvas */
 .click-container {
   position: relative;
   display: inline-block;
-}
-
-.click-container img,
-.click-container canvas {
-  display: block;
-  max-width: 100%;
-  height: auto;
 }
 
 .click-container .overlay-canvas {
@@ -66,12 +96,14 @@
   top: 0;
   left: 0;
   pointer-events: none;
-  z-index: 10;
 }
 
-/* Info text */
+.download-section {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
 .measure-info {
-  margin-top: 1rem;
+  text-align: center;
   font-size: 1.1rem;
-  color: #333;
 }

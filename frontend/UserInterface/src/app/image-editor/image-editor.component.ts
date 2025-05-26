@@ -13,9 +13,9 @@ import { FormsModule }     from '@angular/forms';
 import { DownloadComponent }    from '../download/download.component';
 
 interface ClickPoint {
-  dx: number; // display coords for drawing
+  dx: number; 
   dy: number;
-  x: number;  // natural-image coords for the server
+  x: number;  
   y: number;
 }
 
@@ -45,10 +45,9 @@ export class ImageEditorComponent implements AfterViewInit {
   constructor(private http: HttpClient) {}
 
   ngAfterViewInit() {
-    // canvas init happens when the image loads
+
   }
 
-  // -- File upload & reset --
   onFileSelected(ev: Event): void {
     const inp = ev.target as HTMLInputElement;
     if (!inp.files?.length) return;
@@ -60,16 +59,14 @@ export class ImageEditorComponent implements AfterViewInit {
       this.measureMode      = false;
       this.points           = [];
       this.measuredDistance = null;
-      // sizing occurs in onImageLoad()
     };
     reader.readAsDataURL(file);
   }
 
-  // -- Canvas sizing, identical to MeasureDistanceComponent --
+
   onImageLoad(): void {
     const img    = this.imageEl.nativeElement;
     const canvas = this.overlayCanvas.nativeElement;
-    // match CSS-rendered size
     canvas.width  = img.clientWidth;
     canvas.height = img.clientHeight;
 
@@ -79,7 +76,6 @@ export class ImageEditorComponent implements AfterViewInit {
     this.clearOverlay();
   }
 
-  // -- Clicks & drawing, identical to MeasureDistanceComponent --
   onImageClick(ev: MouseEvent): void {
     if (!this.workingImage || !this.measureMode) return;
 
@@ -126,7 +122,6 @@ export class ImageEditorComponent implements AfterViewInit {
     });
   }
 
-  // -- Your existing single-filter logic, unchanged except entry to measureMode --
   applyFilter(filter:
     'grayscale'|'noise'|'histogram'|'kmeans'|
     'otsu'     |'canny'|'watershed'|'measure-distance'
@@ -141,7 +136,6 @@ export class ImageEditorComponent implements AfterViewInit {
       return;
     }
 
-    // existing endpoints
     const rawBase64 = this.workingImage.split(',')[1];
     let endpoint: string;
     switch (filter) {

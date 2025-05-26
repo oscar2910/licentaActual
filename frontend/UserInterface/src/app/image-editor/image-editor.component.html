@@ -1,31 +1,13 @@
-<!-- src/app/image-editor/image-editor.component.html -->
-<div class="editor-container">
+<div class="card">
   <h2>Multi-Filter Image Editor</h2>
-
-  <!-- Upload -->
   <div class="upload-section">
-    <label for="fileInput">Select Image:</label>
-    <input
-      id="fileInput"
-      type="file"
-      accept="image/*"
-      (change)="onFileSelected($event)"
-    />
+    <label for="fileInput">Select Image</label>
+    <input id="fileInput" type="file" accept="image/*" (change)="onFileSelected($event)" />
   </div>
-
-  <!-- K-means Parameter -->
   <div class="input-group">
-    <label for="kValue">Number of Clusters (K):</label>
-    <input
-      id="kValue"
-      type="number"
-      [(ngModel)]="kValue"
-      min="2"
-      placeholder="e.g. 3"
-    />
+    <label for="kValue">Number of Clusters (K)</label>
+    <input id="kValue" type="number" [(ngModel)]="kValue" min="2" placeholder="e.g. 3" />
   </div>
-
-  <!-- Action Buttons -->
   <div class="action-buttons">
     <button (click)="applyFilter('grayscale')"      [disabled]="!workingImage">Grayscale</button>
     <button (click)="applyFilter('noise')"          [disabled]="!workingImage">Noise</button>
@@ -39,36 +21,22 @@
     <button (click)="computeDistance()"             [disabled]="points.length < 2">Compute Distance</button>
     <button (click)="resetWorkingImage()"           [disabled]="!workingImage">Reset</button>
   </div>
-
-  <!-- Images + Overlay -->
   <div class="images-container" *ngIf="originalImage && workingImage">
-    <!-- Original Image Block -->
     <div class="image-block">
       <h3>Original Image</h3>
       <img [src]="originalImage" alt="Original Image" />
     </div>
-
-    <!-- Working Image + Overlay -->
     <div class="image-block">
       <h3>Working Image</h3>
       <div class="click-container" (click)="onImageClick($event)">
-        <img
-          #imageEl
-          [src]="workingImage"
-          (load)="onImageLoad()"
-          alt="Working Image"
-        />
+        <img #imageEl [src]="workingImage" (load)="onImageLoad()" alt="Working Image" />
         <canvas #overlayCanvas class="overlay-canvas"></canvas>
       </div>
     </div>
   </div>
-
-  <!-- Download Button -->
   <div class="download-section" *ngIf="workingImage">
     <app-download [image]="workingImage"></app-download>
   </div>
-
-  <!-- Measurement Result -->
   <div *ngIf="measuredDistance !== null" class="measure-info">
     <strong>Distance:</strong> {{ measuredDistance | number:'1.2-2' }} px
   </div>

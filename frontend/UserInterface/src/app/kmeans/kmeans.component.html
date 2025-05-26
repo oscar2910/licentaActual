@@ -1,42 +1,29 @@
-<!-- src/app/kmeans/kmeans.component.html -->
-<div class="kmeans-container">
+<div class="card">
   <h2>K-Means Segmentation</h2>
-  
-  <!-- Upload + Controls -->
-  <div class="controls">
-    <label for="kmeansInput">Select Image:</label>
-    <input
-      id="kmeansInput"
-      type="file"
-      accept="image/*"
-      (change)="onFileSelected($event)"
-    />
-
-    <label for="kValue">Clusters (K):</label>
-    <input
-      id="kValue"
-      type="number"
-      [(ngModel)]="k"
-      min="1"
-      placeholder="e.g. 2"
-    />
-
-    <button
-      (click)="processKmeans()"
-      [disabled]="!selectedBase64"
-    >
-      Apply Segmentation
-    </button>
-  </div>
-
-  <!-- Result + Download -->
-  <div *ngIf="processedImage" class="result">
+  <label for="fileInput">Select Medical Image</label>
+  <input
+    id="fileInput"
+    type="file"
+    accept="image/*"
+    (change)="onFileSelected($event)"
+  />
+  <label for="kValue">Number of Clusters (K)</label>
+  <input
+    id="kValue"
+    type="number"
+    [(ngModel)]="k"
+    min="1"
+    placeholder="e.g. 2"
+  />
+  <button
+    (click)="processKmeans()"
+    [disabled]="!selectedBase64"
+  >
+    Apply Segmentation
+  </button>
+  <div *ngIf="processedImage" class="result-section">
     <h3>Result</h3>
-    <img
-      [src]="processedImage"
-      alt="K-Means Segmented Image"
-      class="result-image"
-    />
+    <img [src]="processedImage" alt="K-Means Segmented Image" />
     <app-download [image]="processedImage"></app-download>
   </div>
 </div>

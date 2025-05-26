@@ -2,11 +2,10 @@ package opencv.gradle.project.dto;
 
 public class ImageRequest {
     private String base64Image;
-    private Integer k;          // for K-means
-    private Double threshold1;  // for Canny
-    private Double threshold2;  // for Canny
+    private Integer k;          
+    private Double threshold1;  
+    private Double threshold2;  
 
-    // getters and setters
 
     public String getBase64Image() {
         return base64Image;
