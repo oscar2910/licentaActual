@@ -8,7 +8,6 @@ import org.opencv.core.Core;
 public class App {
 
     static {
-        // Load the native OpenCV library
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
     }
 
