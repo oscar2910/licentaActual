@@ -8,7 +8,6 @@ import { CannyComponent } from './canny/canny.component';
 import { WatershedComponent} from './watershed/watershed.component';
 import { HistogramComponent} from './histogram/histogram.component';
 import { MeasureDistanceComponent } from './measure-distance/measure-distance.component';
-// you can import other components here as well
 
 export const appRoutes: Routes = [
   { path: 'grayscale', component: GrayscaleComponent },
