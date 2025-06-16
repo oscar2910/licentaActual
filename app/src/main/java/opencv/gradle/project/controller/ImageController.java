@@ -56,25 +56,17 @@ public class ImageController {
     @PostMapping("/kmeans")
     public ResponseEntity<String> kmeans(@RequestBody ImageRequest request) {
         try {
-            // Decode the incoming image
             Mat input = imageService.fromBase64(request.getBase64Image());
-
-            // Validate or default the cluster count
             int k = (request.getK() != null && request.getK() > 0)
                   ? request.getK()
                   : 2;
 
-            // Run K-means segmentation
             Mat segmented = imageService.kMeansColorSegmentation(input, k);
-
-            // Encode result as Base64 and return
             String base64Result = imageService.toBase64(segmented);
             return ResponseEntity.ok(base64Result);
 
         } catch (Exception ex) {
-            // Log full stack trace
             ex.printStackTrace();
-            // Return concise error message
             return ResponseEntity
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Error during K-Means segmentation: " + ex.getMessage());
@@ -107,8 +99,6 @@ public class ImageController {
         .badRequest()
         .body("Must supply exactly two points");
     }
-
-    // Compute Euclidean distance in pixel‐space:
     double dx = pts.get(1).getX() - pts.get(0).getX();
     double dy = pts.get(1).getY() - pts.get(0).getY();
     double distance = Math.hypot(dx, dy);

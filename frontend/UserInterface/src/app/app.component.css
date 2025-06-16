@@ -1,13 +1,11 @@
-/* Make the component host fill the viewport & show a background image */
 :host {
-  display: block;             /* allow full‐width/height styling */
-  min-height: 100vh;          /* stretch to viewport height */
+  display: block;             
+  min-height: 100vh;          
   background: 
     url('./assets/medicallogo.png') no-repeat center center fixed;
   background-size: cover;
 }
 
-/* Container sits as a slightly translucent white card over the background */
 .app-container {
   background-color: rgba(255, 255, 255, 0.95);
   max-width: 960px;
@@ -17,7 +15,7 @@
   border-radius: 6px;
 }
 
-/* Header (flex row: branding + nav) */
+
 header {
   display: flex;
   align-items: center;
@@ -29,7 +27,7 @@ header {
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
-/* Branding group */
+
 .branding {
   display: flex;
   align-items: center;
@@ -46,7 +44,7 @@ header {
   color: #c6d1df;
 }
 
-/* Navigation */
+
 .navbar ul {
   list-style: none;
   display: flex;
@@ -58,7 +56,7 @@ header {
   margin: 0 0.75rem;
 }
 
-/* Link styling */
+
 .navbar a {
   display: block;
   padding: 0.5rem 0.8rem;
@@ -69,18 +67,18 @@ header {
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-/* Hover */
+
 .navbar a:hover {
   background-color: #e6f2fb;
 }
 
-/* Active route styling */
+
 .navbar a.active {
   background-color: #007acc;
   color: #fff;
 }
 
-/* Main area */
+
 main {
   margin-top: 2rem;
 }

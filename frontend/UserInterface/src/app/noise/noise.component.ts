@@ -31,7 +31,7 @@ export class NoiseComponent {
       const dataUrl = reader.result as string;
       const base64Index = dataUrl.indexOf(',') + 1;
       this.selectedBase64 = dataUrl.substring(base64Index);
-      this.processedImage = null; // reset previous
+      this.processedImage = null; 
     };
     reader.readAsDataURL(file);
   }

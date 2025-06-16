@@ -12,15 +12,12 @@ import { DownloadComponent }    from '../download/download.component';
   styleUrls: ['./kmeans.component.css']
 })
 export class KmeansComponent {
-  selectedBase64: string | null = null; // holds raw base64 (without the data prefix)
-  processedImage: string | null = null;  // holds the processed result (data URL)
-  k: number = 2; // default k value
+  selectedBase64: string | null = null; 
+  processedImage: string | null = null;  
+  k: number = 2; 
 
   constructor(private http: HttpClient) {}
 
-  /**
-   * Triggered when the user selects an image.
-   */
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (!input.files || input.files.length === 0) {
@@ -30,14 +27,10 @@ export class KmeansComponent {
     this.readFileAsBase64(file);
   }
 
-  /**
-   * Reads file using FileReader and extracts the raw base64 string.
-   */
   private readFileAsBase64(file: File): void {
     const reader = new FileReader();
     reader.onload = () => {
       const dataUrl = reader.result as string;
-      // Remove the prefix, e.g., "data:image/png;base64,"
       const base64Index = dataUrl.indexOf(',') + 1;
       this.selectedBase64 = dataUrl.substring(base64Index);
     };

@@ -1,11 +1,7 @@
 plugins {
-    // Core Java
     id 'java'
-    // Spring Boot plugin
     id 'org.springframework.boot' version '3.1.3'
-    // Manages Spring dependency versions
     id 'io.spring.dependency-management' version '1.1.3'
-    // The Application plugin (so you can run `App` class via `gradlew run`)
     id 'application'
 }
 
@@ -17,44 +13,29 @@ repositories {
 }
 
 dependencies {
-    // Spring Boot Web - for building RESTful APIs
     implementation 'org.springframework.boot:spring-boot-starter-web'
     
-    // OpenCV (native bindings; requires the DLL in java.library.path)
     implementation 'org.openpnp:opencv:4.8.1-0'
-    
-    // (Optional) Google Guava
+
     implementation 'com.google.guava:guava:31.1-jre'
     
-    // Test dependencies
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
-// Use a specific Java version
+
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(21)
     }
 }
 
-/**
- * If you want to run the project via:  ./gradlew run
- * This uses the classic Gradle 'application' plugin,
- * launching the main class 'opencv.gradle.project.App'
- */
+
 application {
     mainClass = 'opencv.gradle.project.App'
-    // Set library path so the native OpenCV DLL is found
     applicationDefaultJvmArgs = ["-Djava.library.path=libs/x64"]
 }
 
-/**
- * If you prefer to run via:  ./gradlew bootRun
- * (the Spring Boot way), we also set library path here.
- * If you have a Spring Boot main class (e.g., OpenCvSpringBootApplication),
- * you can set `mainClass = 'opencv.gradle.project.OpenCvSpringBootApplication'`.
- * Otherwise, if you're reusing 'App', set it to 'App' as below.
- */
+
 bootRun {
     jvmArgs = ["-Djava.library.path=libs/x64"]
     mainClass = 'opencv.gradle.project.App'

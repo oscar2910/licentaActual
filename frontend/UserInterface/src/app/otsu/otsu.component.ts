@@ -12,10 +12,7 @@ import { DownloadComponent }    from '../download/download.component';
   styleUrls: ['./otsu.component.css']
 })
 export class OtsuComponent {
-  // raw Base64 (no data: prefix)
   selectedBase64: string | null = null;
-
-  // final “data:” URL for display
   processedImage: string | null = null;
 
   constructor(private http: HttpClient) {}
@@ -27,7 +24,6 @@ export class OtsuComponent {
     const reader = new FileReader();
     reader.onload = () => {
       const dataUrl = reader.result as string;
-      // strip off the "data:image/…;base64," prefix
       this.selectedBase64 = dataUrl.split(',')[1];
     };
     reader.readAsDataURL(file);

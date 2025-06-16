@@ -15,9 +15,7 @@ import java.util.Base64;
 @Service
 public class ImageProcessingService {
 
-    /**
-     * Takes a base64-encoded image (PNG/JPEG) and decodes it into an OpenCV Mat.
-     */
+
     public Mat fromBase64(String base64) {
         byte[] decoded = Base64.getDecoder().decode(base64);
         Mat matOfByte = new MatOfByte(decoded);
@@ -25,9 +23,7 @@ public class ImageProcessingService {
         return mat;
     }
 
-    /**
-     * Converts a Mat to a base64-encoded PNG by default.
-     */
+
     public String toBase64(Mat mat) {
         MatOfByte buffer = new MatOfByte();
         Imgcodecs.imencode(".png", mat, buffer);
@@ -35,9 +31,7 @@ public class ImageProcessingService {
         return new String(encoded);
     }
 
-    /**
-     * Converts the image to grayscale.
-     */
+
     public Mat grayScaleImage(Mat input) {
         if (input.empty()) {
             return input;
@@ -47,9 +41,7 @@ public class ImageProcessingService {
         return gray;
     }
 
-    /**
-     * Applies median blur for noise reduction (kernel size=3).
-     */
+
     public Mat noiseReductionImage(Mat input) {
         if (input.empty()) {
             return input;
@@ -59,9 +51,7 @@ public class ImageProcessingService {
         return denoised;
     }
 
-    /**
-     * Applies histogram equalization (using CLAHE).
-     */
+
     public Mat histogramEqualizationImage(Mat input) {
         if (input.empty()) {
             return input;
@@ -82,9 +72,7 @@ public class ImageProcessingService {
         return result;
     }
 
-    /**
-     * Applies Otsu's thresholding segmentation.
-     */
+ 
     public Mat otsuThresholdSegmentation(Mat input) {
         if (input.empty()) {
             return input;
@@ -100,9 +88,7 @@ public class ImageProcessingService {
         return binary;
     }
 
-    /**
-     * Performs K-means color (or grayscale) segmentation.
-     */
+
     public Mat kMeansColorSegmentation(Mat input, int k) {
         if (input.empty()) return input;
     
@@ -132,11 +118,10 @@ public class ImageProcessingService {
     
         Mat result = new Mat(input.size(), input.type());
         int width = input.cols();
-        int featureCount = centers.cols();  // should match input.channels()
+        int featureCount = centers.cols();
     
         for (int i = 0; i < numPixels; i++) {
             int clusterIdx = (int) labels.get(i, 0)[0];
-            // build a full-length center vector
             double[] centerVec = new double[featureCount];
             for (int j = 0; j < featureCount; j++) {
                 centerVec[j] = centers.get(clusterIdx, j)[0];
@@ -148,9 +133,6 @@ public class ImageProcessingService {
     }
     
 
-    /**
-     * Applies Watershed segmentation.
-     */
     public Mat applyWatershedSegmentation(Mat input) {
         if (input.empty()) {
             return input;
@@ -213,9 +195,7 @@ public class ImageProcessingService {
         return sourceColor;
     }
 
-    /**
-     * Canny Edge Detection
-     */
+
     public Mat cannyEdgeDetection(Mat input, double threshold1, double threshold2) {
         if (input.empty()) {
             return input;
