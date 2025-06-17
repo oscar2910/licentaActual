@@ -92,7 +92,7 @@ public class ImageController {
     }
 
     @PostMapping("/measure/distance")
-  public ResponseEntity<String> measureDistance(@RequestBody MeasureRequest req) {
+    public ResponseEntity<String> measureDistance(@RequestBody MeasureRequest req) {
     var pts = req.getPoints();
     if (pts == null || pts.size() != 2) {
       return ResponseEntity
