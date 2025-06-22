@@ -3,3 +3,68 @@ body {
     margin: 0;
     padding: 0;
 }
+
+html, body {
+  min-height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background: url('/assets/backgrundImg.png') no-repeat center center fixed;
+  background-size: cover;
+}
+
+@media (max-width: 600px) {
+  .nav {
+    flex-direction: column !important;
+    align-items: center !important;
+    width: 100vw !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+  }
+  .nav h1 {
+    text-align: center !important;
+    width: 100%;
+    font-size: 1.2rem !important;
+    margin-bottom: 0.5rem !important;
+    margin-top: 0.5rem !important;
+    padding: 0 !important;
+  }
+  .navbar ul {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    flex-wrap: nowrap !important;
+    width: 100vw !important;
+    padding-left: 0 !important;
+    margin: 0 !important;
+    overflow-x: hidden !important;
+  }
+  .navbar li {
+    width: 100% !important;
+    text-align: center !important;
+    margin: 0.2rem 0 !important;
+  }
+  .navbar a {
+    width: 98vw !important;
+    display: block !important;
+    margin: 0 auto 0.25rem auto !important;
+    box-sizing: border-box !important;
+    font-size: 1.1rem !important;
+    white-space: normal !important;
+    overflow-x: hidden !important;
+    background: rgba(10, 48, 90, 0.93) !important;
+    color: #a4b2e5 !important;
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12) !important;
+    border: none !important;
+    text-align: center !important;
+    padding: 0.7rem 0.5rem !important;
+  }
+  .navbar a:hover,
+  .navbar a.active {
+    background: #357af0 !important;
+    color: #fff !important;
+  }
+}

@@ -20,6 +20,7 @@
     <button (click)="clearMarkers()"                [disabled]="!workingImage">Clear Points</button>
     <button (click)="computeDistance()"             [disabled]="points.length < 2">Compute Distance</button>
     <button (click)="resetWorkingImage()"           [disabled]="!workingImage">Reset</button>
+    <button (click)="undo()"           [disabled]="!workingImage">Undo</button>
   </div>
   <div class="images-container" *ngIf="originalImage && workingImage">
     <div class="image-block">

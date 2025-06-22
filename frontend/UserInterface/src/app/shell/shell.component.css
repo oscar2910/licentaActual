@@ -86,6 +86,79 @@ h1 {
   color: #357af0;
 }
 
+@media (max-width: 1100px) {
+  .navbar ul {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+  }
+  .navbar li {
+    margin: 0.5rem 0.3rem;
+  }
+  .navbar a {
+    font-size: 1rem;
+    padding: 0.4rem 0.6rem;
+  }
+  .nav {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0.5rem 0;
+  }
+  h1 {
+    padding-top: 1%;
+    padding-left: 1%;
+    font-size: 1.1rem;
+  }
+}
 
+@media (max-width: 800px) {
+  .nav {
+    flex-direction: column;
+    align-items: stretch;
+    background-size: contain;
+    min-height: unset;
+  }
+  .navbar ul {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    margin-top: 1rem;
+    width: 100%;
+  }
+  .navbar li {
+    margin: 0.3rem 0;
+    width: 100%;
+  }
+  .navbar a {
+    width: 100%;
+    text-align: left;
+    font-size: 0.95rem;
+    padding: 0.6rem 1rem;
+    border-radius: 0;
+    border-left: 3px solid #357af0;
+  }
+  h1 {
+    font-size: 1rem;
+  }
+}
 
-
+@media (max-width: 500px) {
+  .nav {
+    padding: 0.2rem 0;
+  }
+  .app-container {
+    padding: 0 0.2rem;
+  }
+  header, .branding {
+    padding: 0.3rem;
+  }
+  .navbar a {
+    font-size: 0.9rem;
+    padding: 0.5rem 0.6rem;
+  }
+  h1 {
+    font-size: 0.9rem;
+    padding-left: 0.5rem;
+    padding-top: 0.5rem;
+  }
+}

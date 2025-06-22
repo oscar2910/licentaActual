@@ -35,6 +35,8 @@ export class ImageEditorComponent implements AfterViewInit {
   points:           ClickPoint[] = [];
   measuredDistance: number | null = null;
 
+  imageHistory: string[] = [];
+
   @ViewChild('imageEl',      { static: false })
   imageEl!: ElementRef<HTMLImageElement>;
   @ViewChild('overlayCanvas',{ static: false })
@@ -59,6 +61,9 @@ export class ImageEditorComponent implements AfterViewInit {
       this.measureMode      = false;
       this.points           = [];
       this.measuredDistance = null;
+
+      this.imageHistory = [];
+
     };
     reader.readAsDataURL(file);
   }
@@ -155,11 +160,25 @@ export class ImageEditorComponent implements AfterViewInit {
     this.http.post(endpoint, payload, { responseType:'text' })
       .subscribe({
         next: resp => {
-          this.workingImage = 'data:image/png;base64,' + resp;
+        const newImage = 'data:image/png;base64,' + resp;
+          if (this.workingImage) {
+          this.imageHistory.push(this.workingImage);
+          }
+          this.workingImage = newImage;
           this.clearOverlay();
         },
         error: err => console.error(`Error:`, err)
       });
+  }
+
+   undo(): void {
+    if (this.imageHistory.length > 0) {
+    this.workingImage = this.imageHistory.pop()!;
+    this.measureMode      = false;
+    this.points           = [];
+    this.measuredDistance = null;
+    this.clearOverlay();
+    }
   }
 
   resetWorkingImage(): void {
